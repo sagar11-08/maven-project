@@ -10,23 +10,7 @@ pipeline
                 git 'https://github.com/ShashankAhire/maven-project.git'
             }
         }
-        stage ('validate the code')
-        {
-            steps {
-                withMaven(globalMavenSettingsConfig: '', jdk: 'JAVA_HOME', maven: 'MVN_HOME', mavenSettingsConfig: '', traceability: true) {
-                    sh 'mvn validate'
-                }
-            }
-        }
-        stage ('compile the code')
-        {
-            steps {
-                withMaven(globalMavenSettingsConfig: '', jdk: 'JAVA_HOME', maven: 'MVN_HOME', mavenSettingsConfig: '', traceability: true) {
-                    sh 'mvn compile'
-                }
-            }
-        }
-        stage ('package the code')
+        stage ('Validate, Compile, and make Package of the Code')
         {
             steps {
                 withMaven(globalMavenSettingsConfig: '', jdk: 'JAVA_HOME', maven: 'MVN_HOME', mavenSettingsConfig: '', traceability: true) {
