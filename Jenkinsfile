@@ -5,21 +5,21 @@ pipeline
     {
         // CI part
         stage ('scm checkout')
-        {agent { label 'MAVEN' }
-            steps { 
-              git 'https://github.com/ShashankAhire/maven-project.git'
+        {
+            steps {
+                git 'https://github.com/ShashankAhire/maven-project.git'
             }
         }
         stage ('validate the code')
-        {agent { label 'MAVEN' }
+        {
             steps {
                 withMaven(globalMavenSettingsConfig: '', jdk: 'JAVA_HOME', maven: 'MVN_HOME', mavenSettingsConfig: '', traceability: true) {
-                sh 'mvn validate'
+                    sh 'mvn validate'
                 }
             }
         }
         stage ('compile the code')
-        {agent { label 'MAVEN' }
+        {
             steps {
                 withMaven(globalMavenSettingsConfig: '', jdk: 'JAVA_HOME', maven: 'MVN_HOME', mavenSettingsConfig: '', traceability: true) {
                     sh 'mvn compile'
@@ -27,7 +27,7 @@ pipeline
             }
         }
         stage ('package the code')
-        {agent { label 'MAVEN' }
+        {
             steps {
                 withMaven(globalMavenSettingsConfig: '', jdk: 'JAVA_HOME', maven: 'MVN_HOME', mavenSettingsConfig: '', traceability: true) {
                     sh 'mvn clean package'
@@ -39,8 +39,8 @@ pipeline
         {
             steps {
                 sshagent(['DEVCICD']) {
-                sh 'scp -o StrictHostKeyChecking=no webapp/target/webapp.war ec2-user@172.31.5.40:/usr/share/tomcat/webapps'
-}
+                    sh 'scp -o StrictHostKeyChecking=no webapp/target/webapp.war ec2-user@172.31.5.40:/usr/share/tomcat/webapps'
+                }
             }
         }
     }
