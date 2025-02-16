@@ -7,13 +7,13 @@ pipeline
         stage ('scm checkout')
         {
             steps {
-                git 'https://github.com/ShashankAhire/maven-project.git'
+                git 'https://github.com/sagar11-08/-project.git'
             }
         }
         stage ('Validate, Compile, and make Package of the Code')
         {
             steps {
-                withMaven(globalMavenSettingsConfig: '', jdk: 'JAVA_HOME', maven: 'MVN_HOME', mavenSettingsConfig: '', traceability: true) {
+                with(globalSettingsConfig: '', jdk: 'JAVA_HOME', : 'MVN_HOME', SettingsConfig: '', traceability: true) {
                     sh 'mvn package'
                 }
             }
@@ -23,7 +23,7 @@ pipeline
         {
             steps {
                 sshagent(['DEVCICD']) {
-                    sh 'scp -o StrictHostKeyChecking=no webapp/target/webapp.war ec2-user@172.31.5.40:/usr/share/tomcat/webapps'
+                    sh 'scp -o StrictHostKeyChecking=no webapp/target/webapp.war ec2-user@3.110.108.176:/usr/share/tomcat/webapps'
                 }
             }
         }
