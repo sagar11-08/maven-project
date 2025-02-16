@@ -13,9 +13,9 @@ pipeline
         stage ('Validate, Compile, and make Package of the Code')
         {
             steps {
-                with(globalSettingsConfig: '', jdk: 'JAVA_HOME', : 'MVN_HOME', SettingsConfig: '', traceability: true) {
-                    sh 'mvn package'
-                }
+               withMaven(globalMavenSettingsConfig: '', jdk: 'JAVA_HOME', maven: 'MVN_HOME', mavenSettingsConfig: '', traceability: true) {
+             sh 'mvn package'
+}
             }
         }
         // CD part
